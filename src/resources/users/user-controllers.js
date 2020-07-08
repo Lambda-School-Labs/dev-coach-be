@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sgMail = require('@sendgrid/mail')
 
-
 const Users = require('./user-model');
 
 const generateToken = require('../../utils/generate-token');
@@ -99,6 +98,7 @@ exports.getUserByID = async (req, res) => {
   }
 };
 
+console.log("register")
 exports.register = async (req, res) => {
   try {
     const newUser = await Users.add({
@@ -118,8 +118,27 @@ exports.register = async (req, res) => {
         })
         const token = generateToken(newUser.id);
         res.cookie("token", token)
-        res.status(201).json({message: `Welcome ${fullUserDetails.first_name}`, token})
-      } catch (error) {
+        res.status(201).json({
+          message: `Welcome ${newUser.first_name}`,
+          token,
+          user: {
+            id: fullUserDetails.id,
+            first_name: fullUserDetails.first_name,
+            last_name: fullUserDetails.last_name,
+            email: fullUserDetails.email,
+            location: fullUserDetails.location,
+            role_id: fullUserDetails.role_id,
+            avatar_url: '',
+            tags: fullUserDetails.tags,
+            hourly_rate: fullUserDetails.hourly_rate,
+            linkedin_url: fullUserDetails.linkedin,
+            github_url: fullUserDetails.github,
+            username:fullUserDetails.username
+          },
+        });
+        
+      } 
+      catch (error) {
         res
           .status(500)
           .json(
@@ -145,8 +164,25 @@ exports.login = async (req, res, next) => {
       ) {
       const token = generateToken(user.id);
       res.cookie("token", token)
-      const Welcome = { message: `Welcome Back ${user.first_name}!`,token}
-      res.status(200).json(Welcome);
+      res.status(200).json({
+        message: `Welcome Back ${user.first_name}!`,
+        token,
+        user: {
+          id: user.id,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+          location: user.location,
+          role_id: user.role_id,
+          tags: user.tags,
+          avatar_url: user.avatar_url,
+          hourly_rate: user.hourly_rate,
+          linkedin: user.linkedin,
+          github: user.github,
+          username:user.username
+        },
+      });
+        
     } else {
       res
         .status(401)
