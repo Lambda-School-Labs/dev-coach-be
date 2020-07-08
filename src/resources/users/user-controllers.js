@@ -100,6 +100,7 @@ exports.getUserByID = async (req, res) => {
   }
 };
 
+console.log("register")
 exports.register = async (req, res) => {
   try {
     const newUser = await Users.add({
