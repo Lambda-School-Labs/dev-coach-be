@@ -2,9 +2,6 @@ require('dotenv');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sgMail = require('@sendgrid/mail')
-
-
-
 const Users = require('./user-model');
 
 const generateToken = require('../../utils/generate-token');
@@ -54,7 +51,7 @@ exports.resetPasswordEmail = async (req, res) => {
       const msg = {
        
         to: `${user.email}`,
-        from: 'devcoachemail@gmail.com',
+        from: 'dallasjames42@gmail.com',
         subject: 'Reset Password',
         text:
           'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
@@ -64,9 +61,9 @@ exports.resetPasswordEmail = async (req, res) => {
       };
       
       sgMail.send(msg).then(() => {
-        console.log("message sent")
+        console.log("message sent successfully")
         res.status(200).json({
-          message: "Email sent"
+          message: "Email sent Successfully"
         }).catch((err) => {
           console.log(err)
         })
