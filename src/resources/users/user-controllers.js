@@ -151,7 +151,7 @@ exports.register = async (req, res) => {
     });
   }
 };
-
+console.log("dfasdf")
 exports.login = async (req, res, next) => {
   const { username, email, password} = req.body;
 
