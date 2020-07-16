@@ -11,6 +11,7 @@ const profileRouter = require('./src/resources/profiles/profile-router');
 const paymentRouter = require('./src/resources/payments/payment-router');
 const feedbackRouter = require('./src/resources/feedback/feedback-router');
 const videoRouter = require('./src/resources/video/video-router');
+const resourcesRouter = require('./src/resources/resource-table/resource-router');
 // const chatRouter = require('./src/resources/chat/chat-router');
 // const editorRouter = require('./src/resources/editor/editor-router');
 
@@ -37,6 +38,7 @@ server.use('/profile', profileRouter);
 server.use('/payment', paymentRouter);
 server.use('/feedback', feedbackRouter);
 server.use('/video', videoRouter);
+server.use('/resources', resourcesRouter);
 // server.use('/chat', chatRouter);
 // server.use('/editor', editorRouter);
 

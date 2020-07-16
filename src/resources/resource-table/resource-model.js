@@ -2,36 +2,25 @@ const moment = require('moment')
 const db = require('../../../data/dbConfig');
 
 async function getResources() {
-    const resources = await db('resources')
-        .join(
-            'users AS u',
-            'u.first_name',
-            'u.last_name',
-            'u.avatar_url'
-        )
+    const resources = await db('resources as r')
+    .join('users as u', 'u.id', '=', 'r.user_id')
+    .select('u.first_name', 'u.last_name', 'u.avatar_url', 'r.id', 'r.title', 'r.description', 'r.link', 'r.thumbnail', 'r.runDate')
     return resources
 }
 
 async function getById(id) {
-    const resource = await db('resources')
-        .where(id)
-        .join(
-            'users AS u',
-            'u.first_name',
-            'u.last_name',
-            'u.avatar_url'
-        )
+    const resource = await db('resources as r')
+    .join('users as u', 'u.id', '=', 'r.user_id')
+    .where('r.id', id)
+    .select('u.first_name', 'u.last_name', 'u.avatar_url', 'r.id', 'r.title', 'r.description', 'r.link', 'r.thumbnail', 'r.runDate')
     return resource
 }
 
 async function getByUserId(id) {
-    const resources = await db('resources')
-        .where('user_id', id).join(
-            'users AS u',
-            'u.first_name',
-            'u.last_name',
-            'u.avatar_url'
-        )
+    const resources = await db('resources as r')
+    .join('users as u', 'u.id', '=', 'r.user_id')
+    .where('r.user_id', id)
+    .select('u.first_name', 'u.last_name', 'u.avatar_url', 'r.id', 'r.title', 'r.description', 'r.link', 'r.thumbnail', 'r.runDate')
     return resources
 }
 
@@ -48,12 +37,12 @@ async function postResources(input) {
 }
 
 async function putResources(changes, id) {
-    const newStuff = await db('resources').update(changes).where(id)
+    const newStuff = await db('resources').update(changes).where({ id })
     return newStuff 
 }
 
 async function delResources(id) {
-    const resource = await db('resources').where(id)
+    const resource = await db('resources').where({ id })
     if (resource) {
         const deleted = await db('resources')
             .where({ id })
