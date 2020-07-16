@@ -1,11 +1,11 @@
 exports.up = function(knex) {
   return knex.schema.createTable('users', table => {
     table.increments();
-    table.string('first_name', 128).notNullable();
-    table.string('last_name', 128).notNullable();
-    table.string('username',128).notNullable().unique();
-    table.string('email', 128).notNullable().unique();
-    table.string('password', 128).notNullable();
+    table.string('first_name').notNullable();
+    table.string('last_name').notNullable();
+    table.string('username', 128).notNullable().unique();
+    table.string('email').notNullable().unique();
+    table.string('password').notNullable();
     table.string('location');
     table.string('avatar_url', 256).defaultTo('');
     table.string('github', 128).defaultTo(null);
