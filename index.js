@@ -11,6 +11,7 @@ const profileRouter = require('./src/resources/profiles/profile-router');
 const paymentRouter = require('./src/resources/payments/payment-router');
 const feedbackRouter = require('./src/resources/feedback/feedback-router');
 const videoRouter = require('./src/resources/video/video-router');
+const resourcesRouter = require('./src/resources/resource-table/resource-router');
 // const chatRouter = require('./src/resources/chat/chat-router');
 // const editorRouter = require('./src/resources/editor/editor-router');
 
@@ -26,6 +27,10 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(cookieParser())
 server.use(morgan())
 
+const corsOptions = {
+  origin: ['https://unsplash.com', 'https://unsplash.com/photos', 'https://source.unsplash.com/', 'http://localhost:3000']
+}
+
 // catch-all endpoint
 server.get('/', (req, res) => {
   res.status(200).json({ message: 'Welcome to the Dev Coach API' });
@@ -37,6 +42,11 @@ server.use('/profile', profileRouter);
 server.use('/payment', paymentRouter);
 server.use('/feedback', feedbackRouter);
 server.use('/video', videoRouter);
+// server.use('/resources', resourcesRouter);
+server.use('/resources', cors((corsOptions)), resourcesRouter, function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for a Single Route'})
+  next()
+})
 // server.use('/chat', chatRouter);
 // server.use('/editor', editorRouter);
 

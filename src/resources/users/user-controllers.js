@@ -2,7 +2,6 @@ require('dotenv');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sgMail = require('@sendgrid/mail')
-
 const Users = require('./user-model');
 
 const generateToken = require('../../utils/generate-token');
@@ -98,7 +97,7 @@ exports.getUserByID = async (req, res) => {
   }
 };
 
-console.log("register")
+
 exports.register = async (req, res) => {
   try {
     const newUser = await Users.add({
@@ -152,16 +151,16 @@ exports.register = async (req, res) => {
     });
   }
 };
-
+console.log("dfasdf")
 exports.login = async (req, res, next) => {
   const { username, email, password} = req.body;
-  
+
   try {
     if(username){
       const user = await Users.findByForLogin({username});
-      
-      if (user && bcrypt.compareSync(password, user.password)
-      ) {
+           if (user && bcrypt.compareSync(password, user.password)
+        
+    ) {
       const token = generateToken(user.id);
       res.cookie("token", token)
       res.status(200).json({
@@ -182,7 +181,7 @@ exports.login = async (req, res, next) => {
           username:user.username
         },
       });
-        
+     
     } else {
       res
         .status(401)
@@ -196,8 +195,24 @@ exports.login = async (req, res, next) => {
     ) {
       const token = generateToken(user.id);
       res.cookie("token", token)
-      const Welcome = { message: `Welcome Back ${user.first_name}!`,token}
-      res.status(200).json(Welcome);
+      res.status(200).json({
+        message: `Welcome Back ${user.first_name}!`,
+        token,
+        user: {
+          id: user.id,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+          location: user.location,
+          role_id: user.role_id,
+          tags: user.tags,
+          avatar_url: user.avatar_url,
+          hourly_rate: user.hourly_rate,
+          linkedin: user.linkedin,
+          github: user.github,
+          username:user.username
+        },
+      });
     } else {
       res
         .status(401)
@@ -249,7 +264,6 @@ exports.putSettings = async (req, res) => {
        updatedUser,
        message: 'User Email updated successfully',
       });
-    // eslint-disable-next-line no-unused-expressions
     }else ( error => {
       res.status(400).json({
          message: error.message,
