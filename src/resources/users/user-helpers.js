@@ -12,7 +12,6 @@ exports.validateRegister = (req, res, next) => {
       username,                
     } = req.body;
     if (!(firstName && lastName && password && email && username)) {
-      console.log("validate register", req.body)
       res.status(400).json({
         message: 'Please make sure required fields are filled in.',
       });
@@ -30,7 +29,6 @@ exports.validatePassword = async (req, res, next) => {
   if (req.body.username) {
     try {
       const user = await Users.findBy({username: req.body.username});
-       console.log("validatePassword",user)
   
     if (
       !user ||
@@ -50,7 +48,6 @@ exports.validatePassword = async (req, res, next) => {
   } else {
     try {
       const user = await Users.findBy({email: req.body.email});
-       console.log("validatePassword",user)
   
     if (
       !user ||
@@ -70,7 +67,6 @@ exports.validatePassword = async (req, res, next) => {
 };
 
 exports.validateEmail = async (req, res, next) => {
-  console.log("validate email", req.body.email )
   const user = await Users.findBy({email:req.body.email});
 
   if (user) {
@@ -146,7 +142,6 @@ exports.validateLogin = (req, res, next) => {
   try {
 
     const { password, email, username} = req.body;
-    console.log(req.body.username)
     if (!(password && email || password  && username)) {
       res.status(400).json({
         message: 'Please make sure required fields are filled in.',

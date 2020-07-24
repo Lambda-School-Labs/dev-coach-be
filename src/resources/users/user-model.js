@@ -28,7 +28,6 @@ async function findBy(email) {
 }
 
 async function findByForLogin(EmailOrUsername) {
-  console.log("findByForLogin", EmailOrUsername)
   let user = await db('users')
     .where(EmailOrUsername)
     .first();

@@ -13,7 +13,6 @@ exports.accountRecovery = async (req, res) => {
     const { token } = req.query;
     const decoded = jwt.verify(token, process.env.SECRET);
     const user = await Users.findBy(decoded.email);
-    console.log(user)
     
      if (user) {
       res.status(200).json({
@@ -151,7 +150,7 @@ exports.register = async (req, res) => {
     });
   }
 };
-console.log("dfasdf")
+
 exports.login = async (req, res, next) => {
   const { username, email, password} = req.body;
 
