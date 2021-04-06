@@ -9,7 +9,7 @@
 
 Team Lead: [Enoka Jaona](https://github.com/EJaona) [Nazifa Hossain](https://github.com/ampers-and)
 
-Back-end Team: [Jose Reinoso](https://github.com/bigtonito39) [Dallas James](https://github.com/dallasjames) [David York](https://github.com/daetor2012)
+Back-end Team: [Jose Reinoso](https://github.com/JoseAReinoso) [Dallas James](https://github.com/dallasjames) [David York](https://github.com/daetor2012)
 
 Front-end Team: [Mandi Hamza](https://github.com/Mandihamza) [Anna Morris](https://github.com/clay-most)
 
